@@ -32,9 +32,12 @@ class stockx_page_scraper:
 
 		product_json['prices'] = {}
 		for item in soup.find_all('div', class_='inset css-8atqhb'):
-			size = item.find('div', class_='title').text[3:]
-			price = item.find('div', class_='subtitle').text
-			product_json['prices'][size] = price
+			try:
+				size = int(item.find('div', class_='title').text[3:])
+				price = item.find('div', class_='subtitle').text
+				product_json['prices'][size] = price
+			except:
+				pass
 
 		return product_json
 
